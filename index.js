@@ -54,10 +54,14 @@ app.get("/", (req, res) => {
   // urlencodedParser是一種middleware，把特定格式的資料解析放進req.body中，由 res.json把資料轉成json格式
   // const urlencodedParser=express.urlencoded({extended:true});
   app.post("/try-post-form", (req, res) => {
-    res.render("try-post-form",req.body);
+    res.render("try-post-form", req.body);
   });
-
-
+  
+  app.post("/try-post", (req, res) => {
+    res.json(req.body);
+  });
+  
+  
 
 // 設定靜態內容資料夾，要放在404前面
 app.use(express.static("public"));
