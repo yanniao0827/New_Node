@@ -6,9 +6,10 @@ import express from "express";
 const app =express();
 
 // 設定路由，只能用GET方法
-app.get('/',(req,res)=>{
-    res.send(`<h2>晚安</h2>`)
-});
+app.get("/", (req, res) => {
+    // res.send(`<h2>哈囉</h2>`);
+    res.render("home", { name: "LEA" });
+  });
 
 // 設定ejs，要在路由的前面
 app.set("view engine","ejs");
