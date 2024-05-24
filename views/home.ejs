@@ -2,6 +2,13 @@
 <%- include('parts/navbar')%>
 <div class="container">
     <h2><%= name %></h2>
+    <div><a href="/try-qs?a=1&b=3">/try-qs?a=1&b=3</a></div>
+    <!-- 成為陣列 -->
+     <div><a href="/try-qs?a[]=2&a[]=LEA">/try-qs?a[]=2&a[]=LEA</a></div>
+    <!-- 成為陣列 -->
+    <div><a href="/try-qs?a=2&a=chale">/try-qs?a=2&a=chale</a></div>
+    <!-- 成為物件 -->
+    <div><a href="/try-qs?a[age]=20&a[name]=YAN">/try-qs?a[age]=20&a[name]=YAN</a></div>
 </div>
 <%- include('parts/script')%>
 <%- include('parts/html_foot')%>

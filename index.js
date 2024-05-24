@@ -32,6 +32,11 @@ app.get("/", (req, res) => {
     res.render("json-sales", { sales });
   });
   
+  // 查看query string
+  app.get("/try-qs", (req, res) => {
+    res.json(req.query); // 查看 query string
+  });
+
 // 設定ejs，要在路由的前面
 app.set("view engine","ejs");
 
