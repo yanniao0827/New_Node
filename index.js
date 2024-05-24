@@ -5,6 +5,9 @@ import express from "express";
 
 const app =express();
 
+// 設定ejs，要在路由的前面
+app.set("view engine","ejs");
+
 // 在進入路由之前先解析
 // 只會解析 application/x-www-form-urlencoded
 app.use(express.urlencoded({extended: true}));
@@ -51,11 +54,10 @@ app.get("/", (req, res) => {
   // urlencodedParser是一種middleware，把特定格式的資料解析放進req.body中，由 res.json把資料轉成json格式
   // const urlencodedParser=express.urlencoded({extended:true});
   app.post("/try-post-form", (req, res) => {
-    res.json(req.body);
+    res.render("try-post-form",req.body);
   });
 
-// 設定ejs，要在路由的前面
-app.set("view engine","ejs");
+
 
 // 設定靜態內容資料夾，要放在404前面
 app.use(express.static("public"));
