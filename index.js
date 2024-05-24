@@ -37,6 +37,13 @@ app.get("/", (req, res) => {
     res.json(req.query); // 查看 query string
   });
 
+  app.get("/try-post-form", (req, res) => {
+    res.render("try-post-form");
+  });
+  app.post("/try-post-form", (req, res) => {
+    res.send("post~~");
+  });
+
 // 設定ejs，要在路由的前面
 app.set("view engine","ejs");
 
