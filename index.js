@@ -64,7 +64,10 @@ app.get("/", (req, res) => {
   });
   
   app.post("/try-upload", upload.single('avatar'), (req, res) => {
-    res.json(req.file);
+    res.json({
+      body: req.body,
+      file: req.file,
+    });
   });
 
 // 設定靜態內容資料夾，要放在404前面
