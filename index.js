@@ -5,6 +5,13 @@ import express from "express";
 
 const app =express();
 
+// 在進入路由之前先解析
+// 只會解析 application/x-www-form-urlencoded
+app.use(express.urlencoded({extended: true}));
+
+// 只會解析 application/json
+app.use(express.json());
+
 // 設定路由，只能用GET方法
 app.get("/", (req, res) => {
     // res.send(`<h2>哈囉</h2>`);
@@ -41,8 +48,9 @@ app.get("/", (req, res) => {
     res.render("try-post-form");
   });
 
-  const urlencodedParser=express.urlencoded({extended:true});
-  app.post("/try-post-form", urlencodedParser,(req, res) => {
+  // urlencodedParser是一種middleware，把特定格式的資料解析放進req.body中，由 res.json把資料轉成json格式
+  // const urlencodedParser=express.urlencoded({extended:true});
+  app.post("/try-post-form", (req, res) => {
     res.json(req.body);
   });
 
