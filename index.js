@@ -2,6 +2,8 @@
 // console.log(process.env.DB_USER);
 
 import express from "express";
+import multer from "multer";
+const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
 
@@ -61,7 +63,9 @@ app.get("/", (req, res) => {
     res.json(req.body);
   });
   
-  
+  app.post("/try-upload", upload.single('avatar'), (req, res) => {
+    res.json(req.file);
+  });
 
 // 設定靜態內容資料夾，要放在404前面
 app.use(express.static("public"));
