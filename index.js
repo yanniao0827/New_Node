@@ -10,6 +10,9 @@ app.get('/',(req,res)=>{
     res.send(`<h2>晚安</h2>`)
 });
 
+// 設定靜態內容資料夾，要放在404前面
+app.use(express.static("public"));
+
 // 設定404介面，一定要放在路由之後，放在路由前面會直接判定是404狀態，就不會再往後判斷
 app.use((req,res)=>{
     res.type("text/plain");
