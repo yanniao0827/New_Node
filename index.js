@@ -40,8 +40,10 @@ app.get("/", (req, res) => {
   app.get("/try-post-form", (req, res) => {
     res.render("try-post-form");
   });
-  app.post("/try-post-form", (req, res) => {
-    res.send("post~~");
+
+  const urlencodedParser=express.urlencoded({extended:true});
+  app.post("/try-post-form", urlencodedParser,(req, res) => {
+    res.json(req.body);
   });
 
 // 設定ejs，要在路由的前面
