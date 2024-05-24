@@ -10,6 +10,9 @@ app.get('/',(req,res)=>{
     res.send(`<h2>晚安</h2>`)
 });
 
+// 設定ejs，要在路由的前面
+app.set("view engine","ejs");
+
 // 設定靜態內容資料夾，要放在404前面
 app.use(express.static("public"));
 app.use("/bootstrap", express.static("node_modules/bootstrap/dist"));
