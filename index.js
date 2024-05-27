@@ -63,12 +63,18 @@ app.get("/", (req, res) => {
   app.post("/try-post", (req, res) => {
     res.json(req.body);
   });
-  
+
+  //上傳單張照片 
   app.post("/try-upload", upload.single('avatar'), (req, res) => {
     res.json({
       body: req.body,
       file: req.file,
     });
+  });
+  // 上傳多張照片，如果不上傳，postman都是空的，狀態是undefined
+  app.post("/try-uploads", upload.array('photos'), (req, res) => {
+    res.json( (req.files)
+    );
   });
 
 // 設定靜態內容資料夾，要放在404前面
