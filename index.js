@@ -77,6 +77,12 @@ app.get("/", (req, res) => {
     );
   });
 
+  app.get("/my-params1/:action/:id", (req, res) => {
+    res.json( (req.params));
+  });
+  app.get("/products/:pid", (req, res) => {
+    res.json( (req.params.pid));
+  });
 // 設定靜態內容資料夾，要放在404前面
 app.use(express.static("public"));
 app.use("/bootstrap", express.static("node_modules/bootstrap/dist"));
