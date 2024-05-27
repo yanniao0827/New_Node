@@ -3,6 +3,7 @@
 
 import express from "express";
 import multer from "multer";
+import upload from "./utils/upload-imgs.js";
 const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
@@ -81,7 +82,7 @@ app.use((req,res)=>{
     res.send("餔餔");
 })
 
-// 如果有設定就是3002，沒有就是3001
+// 如果有設定就是3001，沒有就是3002
 const port =process.env.WEB_PORT || 3002;
 app.listen(port,()=>{
     console.log(`Server start:port ${port}`)
