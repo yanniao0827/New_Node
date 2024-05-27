@@ -3,8 +3,8 @@
 
 import express from "express";
 import multer from "multer";
-import upload from "./utils/upload-imgs.js";
-const upload =multer({dest:"tmp/uploads"}); 
+import upload from "./utils/upload-img.js";
+// const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
 
