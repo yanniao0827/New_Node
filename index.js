@@ -30,9 +30,6 @@ app.use(session({
 // 自訂頂層middleware，因為沒有設定路徑，所以任何東西都會經過這個
 app.use((req,res,next)=>{
   res.locals.title="LEA web"
-  req.session.myNum ||=1; //如果是falsy就設定為1
-  req.session.myNum++;
-  console.log(req.session);
   next(); //代表送到下一個middleware
 });
 
@@ -108,6 +105,13 @@ app.get("/", (req, res) => {
     u=u.split('-').join('');
     res.json({u});
   });
+
+  // 紀錄刷新網頁次數
+app.get("/try-sess",(req,res)=>{
+  req.session.myNum ||=0; //如果是falsy就設定為1
+  req.session.myNum++;
+  res.json(req.session);
+});
 
 app.use("/admin2",admin2Router);
 
