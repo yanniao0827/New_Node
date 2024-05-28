@@ -19,6 +19,9 @@ router.get("/",async(req,res)=>{
     // 取得分頁資料
     if(totalRows){
         totalPages=Math.ceil(totalRows / perPage);
+        if(page>totalPages){
+            return res.redirect(`?page=${totalPages}`);
+        }
         const sql=`SELECT * FROM \`address_book\`LIMIT ${(page-1)*perPage},${perPage}`;
         
         [rows]=await db.query(sql);
