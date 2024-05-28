@@ -7,6 +7,7 @@ import upload from "./utils/upload-img.js";
 import admin2Router from './routes/admin2.js'; //匯入後相當於一個middleware
 import session from "express-session";
 import moment from "moment-timezone";
+import db from "./utils/connect-mysql.js"
 // const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
