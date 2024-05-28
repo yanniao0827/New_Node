@@ -5,6 +5,7 @@ import express from "express";
 import multer from "multer";
 import upload from "./utils/upload-img.js";
 import admin2Router from './routes/admin2.js'; //匯入後相當於一個middleware
+import session from "express-session";
 // const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
@@ -19,9 +20,19 @@ app.use(express.urlencoded({extended: true}));
 // 只會解析 application/json
 app.use(express.json());
 
+app.use(session({
+  saveUninitialized:false,
+  resave:false,
+  // 加密用的字串
+  secret:"ancefrgyks"
+}))
+
 // 自訂頂層middleware，因為沒有設定路徑，所以任何東西都會經過這個
 app.use((req,res,next)=>{
   res.locals.title="LEA web"
+  req.session.myNum ||=1; //如果是falsy就設定為1
+  req.session.myNum++;
+  console.log(req.session);
   next(); //代表送到下一個middleware
 });
 
