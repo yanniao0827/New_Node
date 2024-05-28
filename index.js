@@ -67,7 +67,7 @@ app.get("/", (req, res) => {
     res.render("try-post-form", req.body);
   });
   
-  app.post("/try-post", (req, res) => {
+  app.post("/try-post", upload.none(), (req, res) => {
     res.json(req.body);
   });
 
@@ -100,7 +100,7 @@ app.get("/", (req, res) => {
 
 app.use("/admin2",admin2Router);
 
-// 設定靜態內容資料夾，要放在404前面
+// 設定靜態內容資料夾，要放在404前面，前面的路由都沒有經過時才經過這裡
 app.use(express.static("public"));
 app.use("/bootstrap", express.static("node_modules/bootstrap/dist"));
 
