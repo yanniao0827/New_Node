@@ -6,6 +6,7 @@ import multer from "multer";
 import upload from "./utils/upload-img.js";
 import admin2Router from './routes/admin2.js'; //匯入後相當於一個middleware
 import session from "express-session";
+import moment from "moment-timezone";
 // const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
@@ -115,6 +116,22 @@ app.get("/try-sess",(req,res)=>{
   req.session.myNum++;
   res.json(req.session);
 });
+
+app.get("/try-moment",(req,res)=>{
+  const fm="YYY-MM-DD HH-mm-ss";
+  const m1=moment(); //當下時間的moment
+  const m2=moment(new Date());
+  const m3=moment("2023-08-27");
+
+  res.json({
+    m1:m1.format(fm), //表示想要顯示的格式是YYY-MM-DD HH-mm-ss
+    m1b:m1.tz("Europe/London").format(fm), //自行指定時區
+    m2a:m2.format(fm), 
+    m2b:m2.tz("Europe/London").format(fm),
+    m3a:m3.format(fm), 
+    m3b:m3.tz("Europe/London").format(fm)
+  })
+})
 
 app.use("/admin2",admin2Router);
 
