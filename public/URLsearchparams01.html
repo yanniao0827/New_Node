@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+    <input type="text" name="email" value="test@mail.com"><br/>
+    <input type="password" name="password" value="password"><br/>
+    <input type="checkbox" name="test" value="選項1" checked>選項1
+    <input type="checkbox" name="test" value="選項2">選項2
+    <input type="submit">
+    </form>
+    <div id="info"></div>
+    <script>
+        // URLSearchParams是urlencoded資料的解析器
+        const fd=new FormData(document.forms[0]);
+        const dataObj={name:"Lea",age:22};
+        const u1=new URLSearchParams(dataObj);
+        console.log(u1.toString()); //把object變成urlencoded
+        const u2=new URLSearchParams("a=10&a=23&name=Chale");
+        console.log(u2.get('a'));
+        console.log(u2.getAll('a'));
+        console.log(u2.get('name'));
+
+        const u3=new URLSearchParams(fd);
+        console.log(u3.toString()); //把表單資料變成urlencoded
+        
+    </script>
+</body>
+</html>
