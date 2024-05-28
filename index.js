@@ -4,6 +4,7 @@
 import express from "express";
 import multer from "multer";
 import upload from "./utils/upload-img.js";
+import admin2Router from './routes/admin2.js'; //匯入後相當於一個middleware
 // const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
@@ -90,6 +91,9 @@ app.get("/", (req, res) => {
     u=u.split('-').join('');
     res.json({u});
   });
+
+app.use("/admin2",admin2Router);
+
 // 設定靜態內容資料夾，要放在404前面
 app.use(express.static("public"));
 app.use("/bootstrap", express.static("node_modules/bootstrap/dist"));
