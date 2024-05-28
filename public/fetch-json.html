@@ -17,11 +17,20 @@
     <script>
         const sendData=(e)=>{
             e.preventDefault();
+            const dataObj={};
             // 表單資料變成FormData
             const fd=new FormData(document.forms[0]);
+            // key如果有重複不啻和使用這個方法，因為只會顯示一個資料
+            for(let [k,v] of fd.entries()){
+                dataObj[k]=v;
+            }
+            console.log(dataObj);
             fetch("/try-post",{
                 method:"POST",
-                body:fd,
+                body:JSON.stringify(dataObj),
+                headers:{
+                    "Content-Type":"application/json",
+                }
             })
                 .then((r)=>r.json())
                 .then((data)=>{
