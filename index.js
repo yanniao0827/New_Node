@@ -24,7 +24,10 @@ app.use(session({
   saveUninitialized:false,
   resave:false,
   // 加密用的字串
-  secret:"ancefrgyks"
+  secret:"ancefrgyks",
+  // cookie:{
+  //   maxAge:180_000
+  // }
 }))
 
 // 自訂頂層middleware，因為沒有設定路徑，所以任何東西都會經過這個
