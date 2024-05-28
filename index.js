@@ -8,6 +8,7 @@ import admin2Router from './routes/admin2.js'; //匯入後相當於一個middlew
 import session from "express-session";
 import moment from "moment-timezone";
 import db from "./utils/connect-mysql.js"
+import abRouter from "./routes/address-book.js";
 // const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
@@ -43,6 +44,8 @@ app.get("/", (req, res) => {
     // res.send(`<h2>哈囉</h2>`);
     res.render("home", { name: "LEA" });
   });
+
+app.use("/address-book",abRouter);
 
   app.get("/json-sales", (req, res) => {
     const sales = [
@@ -149,7 +152,13 @@ app.get("/try-moment2",(req,res)=>{
     m3.isValid()
   ]
   )
-})
+});
+
+app.get("/try-db",async(req,res)=>{
+const sql="SELECT * FROM address_book LIMIT 3";
+const [results,fields] = await db.query(sql);
+res.json({results,fields});
+});
 
 app.use("/admin2",admin2Router);
 
