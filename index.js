@@ -19,6 +19,12 @@ app.use(express.urlencoded({extended: true}));
 // 只會解析 application/json
 app.use(express.json());
 
+// 自訂頂層middleware，因為沒有設定路徑，所以任何東西都會經過這個
+app.use((req,res,next)=>{
+  res.locals.title="LEA web"
+  next(); //代表送到下一個middleware
+});
+
 // 設定路由，只能用GET方法
 app.get("/", (req, res) => {
     // res.send(`<h2>哈囉</h2>`);
