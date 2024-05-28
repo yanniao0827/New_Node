@@ -1,7 +1,9 @@
 import express from "express";
+import moment from "moment-timezone";
 import db from "./../utils/connect-mysql.js";
 // 建立路由器，在router身上定義方法
 const router =express.Router();
+const dateFormat="YYYY-MM-DD"
 
 router.get("/",async(req,res)=>{
     let success=false;
@@ -25,6 +27,9 @@ router.get("/",async(req,res)=>{
         const sql=`SELECT * FROM \`address_book\`LIMIT ${(page-1)*perPage},${perPage}`;
         
         [rows]=await db.query(sql);
+        rows.forEach((el)=>{
+            el.birthday=moment(el.birthday).format(dateFormat)
+        })
         }
     // res.json({success,perPage,page,totalRows,rows});
     res.render("address-book/list",{success,perPage,page,totalRows,rows});
