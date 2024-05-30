@@ -98,10 +98,17 @@ router.get("/api", async (req, res) => {
 });
 
 router.get("/add", async (req, res) => {
+  res.locals.title="新增通訊錄 | "+res.locals.title;
+  res.locals.pageName="ab_add";
   res.render("address-book/add");
 });
-// 雖然沒有要上傳檔案，但是import upload-img的middleware來解析表單資料，不然表單送出的東西是urlencoded
-router.post("/add", [upload.none()], async (req, res) => {
+
+// 雖然沒有要上傳檔案，但是import upload-img的middleware來解析表單資料，不然表單送出的東西是multipart/form-data
+// router.post("/add", [upload.none()], async (req, res) => {
+//   res.json(req.body);
+// });
+
+router.post("/add", async (req, res) => {
   res.json(req.body);
 });
 

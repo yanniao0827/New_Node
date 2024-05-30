@@ -12,7 +12,7 @@
 
                 <div class="card-body">
                     <h5 class="card-title">新增資料</h5>
-                    <form name="form1" onsubmit="sendData(event)">
+                    <form name="form1" onsubmit="sendData(event)" oninput="formChanged(event)">
                         <div class="mb-3">
                             <label for="name" class="form-label">姓名</label>
                             <input type="text" class="form-control" id="name" name="name">
@@ -79,6 +79,10 @@
     const nameField = document.form1.name;
     const emailField = document.form1.email;
 
+    const formChanged =e=>{
+        console.log(e.target,e.target.value);
+    }
+
     // 驗證email
     function validateEmail(email) {
         const re =
@@ -108,6 +112,7 @@
             emailField.nextElementSibling.innerText = '請填寫正確的 Email';
         }
 
+        return;
 
         // 有通過檢查, 才要送表單
         if (isPass) {
