@@ -59,7 +59,7 @@ const getListData = async (req) => {
       return { success, redirect };
     }
     // 取得分頁資料
-    const sql = `SELECT * FROM \`address_book\` ${where} LIMIT ${
+    const sql = `SELECT * FROM \`address_book\` ${where} ORDER BY sid DESC LIMIT  ${
       (page - 1) * perPage
     },${perPage}`;
 
@@ -109,7 +109,26 @@ router.get("/add", async (req, res) => {
 // });
 
 router.post("/add", async (req, res) => {
-  res.json(req.body);
+  const sql="INSERT INTO address_book (`name`, `email`, `mobile`, `birthday`, `address`, `created_at`) VALUES (?, ?, ?, ?, ?, NOW())";
+const [ result ] = await db.query(sql, [
+  req.body.name,
+  req.body.email,
+  req.body.mobile,
+  req.body.birthday,
+  req.body.address,
+]);
+res.json(result);
 });
+
+/* 會出現這個結果{
+    "fieldCount": 0,
+    "affectedRows": 1,
+    "insertId": 1009,
+    "info": "",
+    "serverStatus": 2,
+    "warningStatus": 0,
+    "changedRows": 0
+}
+*/
 
 export default router;
