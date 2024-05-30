@@ -1,6 +1,7 @@
 import express from "express";
 import moment from "moment-timezone";
 import db from "./../utils/connect-mysql.js";
+import upload from "./../utils/upload-img.js";
 
 const dateFormat = "YYYY-MM-DD";
 const router = express.Router();
@@ -98,6 +99,10 @@ router.get("/api", async (req, res) => {
 
 router.get("/add", async (req, res) => {
   res.render("address-book/add");
+});
+// 雖然沒有要上傳檔案，但是import upload-img的middleware來解析表單資料，不然表單送出的東西是urlencoded
+router.post("/add", [upload.none()], async (req, res) => {
+  res.json(req.body);
 });
 
 export default router;
