@@ -21,7 +21,10 @@ const getListData = async (req) => {
   let where =' WHERE 1 ';
 // 如果有輸入keyword，在where後面加上模糊搜尋，就是我們輸入的關鍵字
   if(keyword){
-    where += ` AND \`name\` LIKE '%${keyword}%' `;
+    // where += ` AND \`name\` LIKE '%${keyword}%' `; //沒有處理sql injection
+    const keyword2= db.escape(`%${keyword}%`); //把輸入的關鍵字轉成字串後再做跳脫
+    console.log({ keyword2});
+    where += ` AND \`name\` LIKE ${keyword2} ` //如果使用者不小心在名字之間輸入其罐的符號，搜尋結果就是空的，不會造成crash
   }
 
 // 在select後面加上我們輸入的關鍵字，可以跑出我們想要的資料
