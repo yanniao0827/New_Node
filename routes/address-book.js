@@ -16,7 +16,16 @@ const getListData = async (req) => {
     return { success, redirect };
   }
 
-  const t_sql = "SELECT COUNT(1) totalRows FROM address_book";
+// 設定keyword的值，沒有輸入就設定成空字串
+  let keyword=req.query.keyword || '';
+  let where =' WHERE 1 ';
+// 如果有輸入keyword，在where後面加上模糊搜尋，就是我們輸入的關鍵字
+  if(keyword){
+    where += ` AND \`name\` LIKE '%${keyword}%' `;
+  }
+
+// 在select後面加上我們輸入的關鍵字，可以跑出我們想要的資料
+  const t_sql = `SELECT COUNT(1) totalRows FROM address_book ${where}`;
   const [[{ totalRows }]] = await db.query(t_sql);
   let totalPages = 0; // 總頁數, 預設值
   let rows = []; // 分頁資料
@@ -27,7 +36,7 @@ const getListData = async (req) => {
       return { success, redirect };
     }
     // 取得分頁資料
-    const sql = `SELECT * FROM \`address_book\` LIMIT ${
+    const sql = `SELECT * FROM \`address_book\` ${where} LIMIT ${
       (page - 1) * perPage
     },${perPage}`;
 
