@@ -79,8 +79,19 @@
     const nameField = document.form1.name;
     const emailField = document.form1.email;
 
-    const formChanged =e=>{
-        console.log(e.target,e.target.value);
+    let myState={
+        name:"",
+        email:"",
+        mobile:"",
+        birthday:"",
+        address:""
+    };
+    const formChanged=(e)=>{
+    // console.log(e.target.name, e.target.value);
+    // myState[e.target.name] = e.target.value;
+    // 用react的方式寫，在哪一欄做更改時可以把值跟欄位的name顯示出來
+    myState={...myState,[e.target.name]:e.target.value}
+    console.log(myState);
     }
 
     // 驗證email
