@@ -18,6 +18,9 @@ const getListData = async (req) => {
 
 // 設定keyword的值，沒有輸入就設定成空字串
   let keyword=req.query.keyword || '';
+  let birth_begin=req.query.birth_begin || '';
+  let birth_end=req.query.birth_end || '';
+
   let where =' WHERE 1 ';
 // 如果有輸入keyword，在where後面加上模糊搜尋，就是我們輸入的關鍵字
   if(keyword){
@@ -25,6 +28,22 @@ const getListData = async (req) => {
     const keyword2= db.escape(`%${keyword}%`); //把輸入的關鍵字轉成字串後再做跳脫
     console.log({ keyword2});
     where += ` AND \`name\` LIKE ${keyword2} ` //如果使用者不小心在名字之間輸入其罐的符號，搜尋結果就是空的，不會造成crash
+  }
+  if(birth_begin){
+    // 用moment去處理
+    const m= moment(birth_begin);
+    // 如果日期符合格式，就把AND的條件加上去
+    if(m.isValid()){
+      where += ` AND birthday >= '${m.format(dateFormat)}' `;
+    }
+  }
+  if(birth_end){
+   // 用moment去處理
+   const m= moment(birth_end);
+   // 如果日期符合格式，就把AND的條件加上去
+   if(m.isValid()){
+     where += ` AND birthday <= '${m.format(dateFormat)}' `;
+   }
   }
 
 // 在select後面加上我們輸入的關鍵字，可以跑出我們想要的資料
