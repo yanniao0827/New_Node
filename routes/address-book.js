@@ -109,6 +109,8 @@ router.get("/add", async (req, res) => {
 // });
 
 router.post("/add", async (req, res) => {
+/*
+//方法1
   const sql="INSERT INTO address_book (`name`, `email`, `mobile`, `birthday`, `address`, `created_at`) VALUES (?, ?, ?, ?, ?, NOW())";
 const [ result ] = await db.query(sql, [
   req.body.name,
@@ -117,10 +119,18 @@ const [ result ] = await db.query(sql, [
   req.body.birthday,
   req.body.address,
 ]);
+*/
+
+//方法二
+let body={...req.body}; //先展開複製
+body.created_at=new Date(); //把created_at新增到body裡面
+const sql = "INSERT INTO address_book SET ?";
+const [result] = await db.query(sql, [body]);
+
 res.json(result);
 });
 
-/* 會出現這個結果{
+/* 方法1會出現這個結果{
     "fieldCount": 0,
     "affectedRows": 1, 被影響的列數
     "insertId": 1009, 最新的id
