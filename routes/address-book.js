@@ -124,10 +124,16 @@ const [ result ] = await db.query(sql, [
 //方法二
 let body={...req.body}; //先展開複製
 body.created_at=new Date(); //把created_at新增到body裡面
+const m =moment(body.birthday); //把生日日期變成moment
+body.birthday = m.isValid() ? m.format(dateFormat) : null; //如果生日日期符合格式就保留，沒給就讓它是null
 const sql = "INSERT INTO address_book SET ?";
 const [result] = await db.query(sql, [body]);
 
-res.json(result);
+res.json({
+  result, 
+  success: !! result.affectedRows
+});
+
 });
 
 /* 方法1會出現這個結果{
