@@ -122,8 +122,8 @@ res.json(result);
 
 /* 會出現這個結果{
     "fieldCount": 0,
-    "affectedRows": 1,
-    "insertId": 1009,
+    "affectedRows": 1, 被影響的列數
+    "insertId": 1009, 最新的id
     "info": "",
     "serverStatus": 2,
     "warningStatus": 0,
