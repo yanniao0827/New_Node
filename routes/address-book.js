@@ -84,6 +84,20 @@ const getListData = async (req) => {
   };
 };
 
+//middleware
+router.use((req,res,next)=>{
+  let u=req.url.split("?")[0];
+  if(u==="/"){
+    return next();
+  }
+  if(req.session.admin){
+    //有登入就通過
+    next();
+  }else{
+    res.redirect("/login");
+  }
+});
+
 router.get("/", async (req, res) => {
   res.locals.title="通訊錄列表 | "+res.locals.title;
   res.locals.pageName="ab_list";
