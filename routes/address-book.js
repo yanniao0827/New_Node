@@ -180,7 +180,8 @@ router.get("/edit/:sid", async (req, res) => {
     //如已經刪掉地10筆，就找不到第10筆的資料，就跳回列表葉
     return res.redirect("/address-book");
   }
-  res.json(rows[0]);
+  // res.json(rows[0]);
+  res.render("address-book/edit",rows[0])
 });
 
 
