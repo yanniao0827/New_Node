@@ -181,6 +181,7 @@ router.get("/edit/:sid", async (req, res) => {
     return res.redirect("/address-book");
   }
   // res.json(rows[0]);
+  rows[0].birthday=moment(rows[0].birthday).format(dateFormat);
   res.render("address-book/edit",rows[0])
 });
 
