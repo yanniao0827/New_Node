@@ -167,5 +167,22 @@ router.delete("/api/:sid", async (req, res) => {
   res.json(output);
 });
 
+// 編輯表單資料
+router.get("/edit/:sid", async (req, res) => {
+  const sid = +req.params.sid || 0;
+  if (!sid) {
+    return res.redirect("/address-book");
+  }
+
+  const sql = `SELECT * FROM address_book WHERE sid=${sid}`;
+  const [rows] = await db.query(sql);
+  if(!rows.length){
+    //如已經刪掉地10筆，就找不到第10筆的資料，就跳回列表葉
+    return res.redirect("/address-book");
+  }
+  res.json(rows[0]);
+});
+
+
 
 export default router;
