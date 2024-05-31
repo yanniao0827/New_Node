@@ -9,6 +9,7 @@ import session from "express-session";
 import moment from "moment-timezone";
 import db from "./utils/connect-mysql.js"
 import abRouter from "./routes/address-book.js";
+import cors from "cors";
 // const upload =multer({dest:"tmp/uploads"}); 
 
 const app =express();
@@ -22,6 +23,8 @@ app.use(express.urlencoded({extended: true}));
 
 // 只會解析 application/json
 app.use(express.json());
+
+app.use(cors());
 
 app.use(session({
   saveUninitialized:false,
