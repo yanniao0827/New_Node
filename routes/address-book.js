@@ -28,7 +28,7 @@ const getListData = async (req) => {
     // where += ` AND \`name\` LIKE '%${keyword}%' `; //沒有處理sql injection
     const keyword2= db.escape(`%${keyword}%`); //把輸入的關鍵字轉成字串後再做跳脫
     console.log({ keyword2});
-    where += ` AND (\`name\` LIKE ${keyword2} OR \`mobile\` LIKE ${keyword2})`; 
+    where += ` AND (\`name\` LIKE ${keyword2} OR \`mobile\` LIKE ${keyword2} OR \`email\` LIKE ${keyword2} OR \`address\` LIKE ${keyword2})`; 
     //如果使用者不小心在名字之間輸入其罐的符號，搜尋結果就是空的，不會造成crash
     //要加or的話就把整行用()包起來，還要其他條件的話後面繼續加or
   }
