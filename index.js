@@ -52,6 +52,7 @@ app.use(session({
 // 自訂頂層middleware，因為沒有設定路徑，所以任何東西都會經過這個
 app.use((req,res,next)=>{
   res.locals.title="LEA web"
+  res.locals.session=req.session;
   next(); //代表送到下一個middleware
 });
 
@@ -217,6 +218,11 @@ app.post("/login",upload.none(),async(req,res)=>{
     nickname: rows[0].nickname,
   }
   res.json(output);
+});
+
+app.get("/logout", (req, res) => {
+  delete req.session.admin;
+  res.redirect("/");
 });
 
 // 設定靜態內容資料夾，要放在404前面，前面的路由都沒有經過時才經過這裡
