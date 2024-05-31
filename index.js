@@ -24,7 +24,14 @@ app.use(express.urlencoded({extended: true}));
 // 只會解析 application/json
 app.use(express.json());
 
-app.use(cors());
+const corsOptions={
+  credentials:true,
+  origin:(origin,cb)=>{
+    console.log({origin});
+    cb(null,true);
+  }
+}
+app.use(cors(corsOptions));
 
 app.use(session({
   saveUninitialized:false,
