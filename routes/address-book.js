@@ -67,7 +67,9 @@ const getListData = async (req) => {
 
     [rows] = await db.query(sql);
     rows.forEach((el) => {
-      el.birthday = moment(el.birthday).format(dateFormat);
+      const m = moment(el.birthday);
+      // 無效的日期格式, 使用空字串
+      el.birthday = m.isValid() ? m.format(dateFormat) : '';
     });
   }
   success = true;
