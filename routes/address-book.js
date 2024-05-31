@@ -197,7 +197,15 @@ router.put("/api/:sid", upload.none(), async (req, res) => {
     return res.json(output);
   }
   
-  res.json(req.body);
+  try{
+    const sql="UPDATE `address_book` SET ? WHERE sid=?";
+    const [result]=await db.query(sql,[req.body,sid]);
+    output.result=result;
+    output.success=!!(result.affectedRows && result.changedRows);
+  }catch(ex){
+    output.error=ex;
+  }
+  res.json(output);
 });
 
 
