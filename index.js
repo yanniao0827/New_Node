@@ -162,6 +162,12 @@ res.json({results,fields});
 
 app.use("/admin2",admin2Router);
 
+app.get("/yahoo", async (req, res) => {
+  const r = await fetch('https://tw.yahoo.com/');
+  const txt = await r.text();
+  res.send(txt);
+});
+
 // 設定靜態內容資料夾，要放在404前面，前面的路由都沒有經過時才經過這裡
 app.use(express.static("public"));
 app.use("/bootstrap", express.static("node_modules/bootstrap/dist"));
