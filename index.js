@@ -236,6 +236,19 @@ res.send(token);
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiYWNjb3VudCI6IkxlYW5hIiwiaWF0IjoxNzE5MTkzNTYyfQ.glS7xe-0_AEoHq-Y2pZwybwa-NL-gONS75fQpnSOXCI
 })
 
+app.get("/jwt2",(req,res)=>{
+const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiYWNjb3VudCI6IkxlYW5hIiwiaWF0IjoxNzE5MTkzNTYyfQ.glS7xe-0_AEoHq-Y2pZwybwa-NL-gONS75fQpnSOXCI';
+let payload={};
+try{
+  payload=jwt.verify(token,process.env.JWT_KEY);
+}catch(ex){
+  payload={ex};
+};
+res.send(payload);
+  // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiYWNjb3VudCI6IkxlYW5hIiwiaWF0IjoxNzE5MTkzNTYyfQ.glS7xe-0_AEoHq-Y2pZwybwa-NL-gONS75fQpnSOXCI
+  })
+  
+
 // 設定靜態內容資料夾，要放在404前面，前面的路由都沒有經過時才經過這裡
 app.use(express.static("public"));
 app.use("/bootstrap", express.static("node_modules/bootstrap/dist"));
