@@ -235,10 +235,14 @@ router.put("/api/:sid", upload.none(), async (req, res) => {
   if (!sid) {
     return res.json(output);
   }
+
+  let body={...req.body};
+  const m=moment(body.birthday);
+  body.birthday=m.isValid()?m.format(dateFormat):null;
   
   try{
     const sql="UPDATE `address_book` SET ? WHERE sid=?";
-    const [result]=await db.query(sql,[req.body,sid]);
+    const [result]=await db.query(sql,[body,sid]);
     output.result=result;
     output.success=!!(result.affectedRows && result.changedRows);
   }catch(ex){
